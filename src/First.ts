@@ -17,6 +17,8 @@ export default class First {
 	private cube!: THREE.Mesh;
 	private plane!: THREE.Mesh;
 
+  private renderTime: number = Date.now()
+
 	constructor() {
 		this.initScene();
 	}
@@ -69,8 +71,12 @@ export default class First {
 	}
 
   render() {
+    const time = Date.now()
+    const angle = (time - this.renderTime) * 0.001
+    this.renderTime = time
+
     this.renderer.render(this.scene, this.camera)
-    this.mesh.rotateY(0.01)
+    this.mesh.rotateY(angle)
     requestAnimationFrame(this.render.bind(this))
   }
 }
